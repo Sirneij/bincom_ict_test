@@ -89,39 +89,40 @@
 <!---->
 {% block js %}
 <script>
-  const pollingUnitNumber = document.getElementById("polling_unit_number");
-  const pollingUnitInfoTable = document.getElementById(
-    "polling_unit_info_table"
-  );
-  const pollingUnitResultTable = document.getElementById(
-    "polling_unit_result_table"
-  );
-  pollingUnitNumber.addEventListener("keyup", (e) => {
-    e.preventDefault();
-    pollingUnitInfoTable.innerHTML = "";
-    pollingUnitResultTable.innerHTML = "";
-    const pUnitNumber = e.target.value.toUpperCase();
-    let formData = new FormData();
-    formData.append("unit_number", pUnitNumber);
-    $.ajax({
-      url: "{% url 'elections:pulling_unit_result' %}",
-      type: "POST",
-      dataType: "json",
-      cache: false,
-      processData: false,
-      contentType: false,
-      data: formData,
-      error: function (xhr) {
-        console.error(xhr.statusText);
-      },
-      success: function (res) {
-        console.log(res);
-        if (!res.success) {
-          $("#polling_unit_info_header").text(res.msg);
-        } else {
-          if (res.poll_info.length > 0) {
-            $("#polling_unit_info_header").text("Polling unit information");
-            pollingUnitInfoTable.innerHTML = `
+  $(window).load(function () {
+    const pollingUnitNumber = document.getElementById("polling_unit_number");
+    const pollingUnitInfoTable = document.getElementById(
+      "polling_unit_info_table"
+    );
+    const pollingUnitResultTable = document.getElementById(
+      "polling_unit_result_table"
+    );
+    pollingUnitNumber.addEventListener("keyup", (e) => {
+      e.preventDefault();
+      pollingUnitInfoTable.innerHTML = "";
+      pollingUnitResultTable.innerHTML = "";
+      const pUnitNumber = e.target.value.toUpperCase();
+      let formData = new FormData();
+      formData.append("unit_number", pUnitNumber);
+      $.ajax({
+        url: "{% url 'elections:pulling_unit_result' %}",
+        type: "POST",
+        dataType: "json",
+        cache: false,
+        processData: false,
+        contentType: false,
+        data: formData,
+        error: function (xhr) {
+          console.error(xhr.statusText);
+        },
+        success: function (res) {
+          console.log(res);
+          if (!res.success) {
+            $("#polling_unit_info_header").text(res.msg);
+          } else {
+            if (res.poll_info.length > 0) {
+              $("#polling_unit_info_header").text("Polling unit information");
+              pollingUnitInfoTable.innerHTML = `
               <thead>
                 <tr>
                   <th>#</th>
@@ -134,9 +135,9 @@
                 </tr>
               </thead>
               <tbody>`;
-            let counter = 1;
-            res.poll_info.forEach((p) => {
-              pollingUnitInfoTable.innerHTML += `
+              let counter = 1;
+              res.poll_info.forEach((p) => {
+                pollingUnitInfoTable.innerHTML += `
             <tr>
               <td>${counter}</td>
               <td>${p.uniqueid}</td>
@@ -146,15 +147,15 @@
               <td>${p.lga_name}</td>
               <td>${p.state_name}</td>
             </tr>`;
-              counter++;
-            });
-            pollingUnitInfoTable.innerHTML += `</tbody>`;
-          } else {
-            pollingUnitInfoTable.innerHTML = `<h3 class="text-center">No information available for this query</h3>`;
-          }
+                counter++;
+              });
+              pollingUnitInfoTable.innerHTML += `</tbody>`;
+            } else {
+              pollingUnitInfoTable.innerHTML = `<h3 class="text-center">No information available for this query</h3>`;
+            }
 
-          if (res.polling_unit_result.length > 0) {
-            pollingUnitResultTable.innerHTML = `
+            if (res.polling_unit_result.length > 0) {
+              pollingUnitResultTable.innerHTML = `
           <thead>
             <tr>
               <th style="width: 34%">#</th>
@@ -164,22 +165,23 @@
           </thead>
           <tbody>
           `;
-            let counter2 = 1;
-            res.polling_unit_result.forEach((r) => {
-              pollingUnitResultTable.innerHTML += `
+              let counter2 = 1;
+              res.polling_unit_result.forEach((r) => {
+                pollingUnitResultTable.innerHTML += `
             <tr>
               <td>${counter2}</td>
               <td>${r.party_abbreviation}</td>
               <td>${r.party_score}</td>
             </tr>`;
-              counter2++;
-            });
-            pollingUnitResultTable.innerHTML += `</tbody>`;
-          } else {
-            pollingUnitResultTable.innerHTML = `<h3 class="text-center">No result available for this query</h3>`;
+                counter2++;
+              });
+              pollingUnitResultTable.innerHTML += `</tbody>`;
+            } else {
+              pollingUnitResultTable.innerHTML = `<h3 class="text-center">No result available for this query</h3>`;
+            }
           }
-        }
-      },
+        },
+      });
     });
   });
 </script>
