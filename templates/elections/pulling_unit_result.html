@@ -96,7 +96,7 @@
   const pollingUnitResultTable = document.getElementById(
     "polling_unit_result_table"
   );
-  pollingUnitNumber.addEventListener("change", (e) => {
+  pollingUnitNumber.addEventListener("keyup", (e) => {
     e.preventDefault();
     pollingUnitInfoTable.innerHTML = "";
     pollingUnitResultTable.innerHTML = "";
