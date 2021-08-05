@@ -94,50 +94,55 @@
           }
         } else {
           if (res.results.length > 0) {
-            $("#polling_unit_info_header").text("LGA result");
-            pollingUnitResultTable.innerHTML = `
-          <thead>
-            <tr>
-              <th style="width: 34%">#</th>
-              <th style="width: 34%">Party Abbreviation</th>
-              <th style="width: 22%">Party Score</th>
-            </tr>
-          </thead>
-          <tbody>
-          `;
-            let counter = 1;
-            const combinedItems = (arr = []) => {
-              const res = arr.reduce((acc, obj) => {
-                let found = false;
-                for (let i = 0; i < acc.length; i++) {
-                  if (acc[i].party_abbreviation === obj.party_abbreviation) {
-                    found = true;
-                    acc[i].total += obj.summed_party_result;
-                    acc[i].count++;
+            if (!document.getElementById("spinningLoader")) {
+              $("#polling_unit_info_header").text("LGA result");
+
+              pollingUnitResultTable.innerHTML = `
+                <thead>
+                  <tr>
+                    <th style="width: 34%">#</th>
+                    <th style="width: 34%">Party Abbreviation</th>
+                    <th style="width: 22%">Party Score</th>
+                  </tr>
+                </thead>
+                <tbody>
+                `;
+              let counter = 1;
+              const combinedItems = (arr = []) => {
+                const res = arr.reduce((acc, obj) => {
+                  let found = false;
+                  for (let i = 0; i < acc.length; i++) {
+                    if (acc[i].party_abbreviation === obj.party_abbreviation) {
+                      found = true;
+                      acc[i].total += obj.summed_party_result;
+                      acc[i].count++;
+                    }
                   }
-                }
-                if (!found) {
-                  obj.count = 1;
-                  obj.total = obj.summed_party_result;
-                  acc.push(obj);
-                }
-                return acc;
-              }, []);
-              return res;
-            };
-            combinedItems(res.results).forEach((r) => {
-              pollingUnitResultTable.innerHTML += `
-            <tr>
-              <td>${counter}</td>
-              <td>${r.party_abbreviation}</td>
-              <td>${r.total}</td>
-            </tr>`;
-              counter++;
-            });
-            pollingUnitResultTable.innerHTML += `</tbody>`;
+                  if (!found) {
+                    obj.count = 1;
+                    obj.total = obj.summed_party_result;
+                    acc.push(obj);
+                  }
+                  return acc;
+                }, []);
+                return res;
+              };
+              combinedItems(res.results).forEach((r) => {
+                pollingUnitResultTable.innerHTML += `
+                  <tr>
+                    <td>${counter}</td>
+                    <td>${r.party_abbreviation}</td>
+                    <td>${r.total}</td>
+                  </tr>`;
+                counter++;
+              });
+              pollingUnitResultTable.innerHTML += `</tbody>`;
+            }
           } else {
-            $("#polling_unit_result_table").html("");
-            $("#polling_unit_info_header").text("No results for this LGA");
+            if (!document.getElementById("spinningLoader")) {
+              $("#polling_unit_result_table").html("");
+              $("#polling_unit_info_header").text("No results for this LGA");
+            }
           }
         }
       },

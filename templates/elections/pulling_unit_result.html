@@ -131,63 +131,72 @@
             }
           } else {
             if (res.poll_info.length > 0) {
-              $("#polling_unit_info_header").text("Polling unit information");
-              pollingUnitInfoTable.innerHTML = `
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Unique ID</th>
-                  <th>Name</th>
-                  <th>Number</th>
-                  <th>Description</th>
-                  <th>LGA</th>
-                  <th>State</th>
-                </tr>
-              </thead>
-              <tbody>`;
-              let counter = 1;
-              res.poll_info.forEach((p) => {
-                pollingUnitInfoTable.innerHTML += `
-            <tr>
-              <td>${counter}</td>
-              <td>${p.uniqueid}</td>
-              <th scope="row" class="text-start">${p.polling_unit_name}</th>
-              <td>${p.polling_unit_number}</td>
-              <td>${p.polling_unit_description}</td>
-              <td>${p.lga_name}</td>
-              <td>${p.state_name}</td>
-            </tr>`;
-                counter++;
-              });
-              pollingUnitInfoTable.innerHTML += `</tbody>`;
+              if (!document.getElementById("spinningLoader")) {
+                $("#polling_unit_info_header").text("Polling unit information");
+
+                pollingUnitInfoTable.innerHTML = `
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Unique ID</th>
+                        <th>Name</th>
+                        <th>Number</th>
+                        <th>Description</th>
+                        <th>LGA</th>
+                        <th>State</th>
+                      </tr>
+                    </thead>
+                    <tbody>`;
+                let counter = 1;
+                res.poll_info.forEach((p) => {
+                  pollingUnitInfoTable.innerHTML += `
+                    <tr>
+                      <td>${counter}</td>
+                      <td>${p.uniqueid}</td>
+                      <th scope="row" class="text-start">${p.polling_unit_name}</th>
+                      <td>${p.polling_unit_number}</td>
+                      <td>${p.polling_unit_description}</td>
+                      <td>${p.lga_name}</td>
+                      <td>${p.state_name}</td>
+                    </tr>`;
+                  counter++;
+                });
+                pollingUnitInfoTable.innerHTML += `</tbody>`;
+              }
             } else {
-              pollingUnitInfoTable.innerHTML = `<h3 class="text-center">No information available for this query</h3>`;
+              if (!document.getElementById("spinningLoader")) {
+                pollingUnitInfoTable.innerHTML = `<h3 class="text-center">No information available for this query</h3>`;
+              }
             }
 
             if (res.polling_unit_result.length > 0) {
-              pollingUnitResultTable.innerHTML = `
-          <thead>
-            <tr>
-              <th style="width: 34%">#</th>
-              <th style="width: 34%">Party Abbreviation</th>
-              <th style="width: 22%">Party Score</th>
-            </tr>
-          </thead>
-          <tbody>
-          `;
-              let counter2 = 1;
-              res.polling_unit_result.forEach((r) => {
-                pollingUnitResultTable.innerHTML += `
-            <tr>
-              <td>${counter2}</td>
-              <td>${r.party_abbreviation}</td>
-              <td>${r.party_score}</td>
-            </tr>`;
-                counter2++;
-              });
-              pollingUnitResultTable.innerHTML += `</tbody>`;
+              if (!document.getElementById("spinningLoader")) {
+                pollingUnitResultTable.innerHTML = `
+                  <thead>
+                    <tr>
+                      <th style="width: 34%">#</th>
+                      <th style="width: 34%">Party Abbreviation</th>
+                      <th style="width: 22%">Party Score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  `;
+                let counter2 = 1;
+                res.polling_unit_result.forEach((r) => {
+                  pollingUnitResultTable.innerHTML += `
+                    <tr>
+                      <td>${counter2}</td>
+                      <td>${r.party_abbreviation}</td>
+                      <td>${r.party_score}</td>
+                    </tr>`;
+                  counter2++;
+                });
+                pollingUnitResultTable.innerHTML += `</tbody>`;
+              }
             } else {
-              pollingUnitResultTable.innerHTML = `<h3 class="text-center">No result available for this query</h3>`;
+              if (!document.getElementById("spinningLoader")) {
+                pollingUnitResultTable.innerHTML = `<h3 class="text-center">No result available for this query</h3>`;
+              }
             }
           }
         },
