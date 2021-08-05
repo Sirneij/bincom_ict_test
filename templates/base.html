@@ -138,6 +138,15 @@
             }
             if (document.getElementById("spinningLoader")) {
               document.getElementById("spinningLoader").style.display = "block";
+              if (document.getElementById("polling_unit_info_header")) {
+                $("#polling_unit_info_header").text("");
+                $("#polling_unit_info_header").hide();
+              }
+              if (document.getElementById("polling_unit_result_table")) {
+                document.getElementById(
+                  "polling_unit_result_table"
+                ).style.display = "none";
+              }
             }
           },
           complete: function () {

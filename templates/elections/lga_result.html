@@ -89,9 +89,7 @@
 
       success: function (res) {
         if (!res.success) {
-          if (!document.getElementById("spinningLoader")) {
-            $("#polling_unit_info_header").text(res.msg);
-          }
+          $("#polling_unit_info_header").text(res.msg);
         } else {
           if (res.results.length > 0) {
             $("#polling_unit_info_header").text("LGA result");
@@ -136,10 +134,8 @@
             });
             pollingUnitResultTable.innerHTML += `</tbody>`;
           } else {
-            if (!document.getElementById("spinningLoader")) {
-              $("#polling_unit_result_table").html("");
-              $("#polling_unit_info_header").text("No results for this LGA");
-            }
+            $("#polling_unit_result_table").html("");
+            $("#polling_unit_info_header").text("No results for this LGA");
           }
         }
       },
