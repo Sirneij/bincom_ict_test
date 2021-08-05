@@ -11,8 +11,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+
 import dj_database_url
-from decouple import config, Csv
+from decouple import Csv, config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,7 +31,7 @@ SECRET_KEY = config(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", default=True, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default="localhost" , cast=Csv())
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default="localhost", cast=Csv())
 
 
 # Application definition
@@ -55,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 if not DEBUG:
-    MIDDLEWARE +=['whitenoise.middleware.WhiteNoiseMiddleware',]
+    MIDDLEWARE += ['whitenoise.middleware.WhiteNoiseMiddleware', ]
 
 ROOT_URLCONF = 'bincom_ICT.urls'
 
@@ -92,7 +93,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': config("NAME", default=""),
-        'USER': 'root',#config("USER", default="root"),
+        'USER': 'root',  # config("USER", default="root"),
         'PASSWORD': config("PASSWORD", default=""),
         'HOST': config("HOST", default=""),
         'PORT': '',

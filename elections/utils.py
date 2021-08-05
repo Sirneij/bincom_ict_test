@@ -19,11 +19,12 @@ def get_polling_unit_info(number):
     states = []
     for p in poll:
         lga = models.Lga.objects.get(lga_id=p["lga_id"])
-        state = models.States.objects.get(state_id=lga.state_id)
-        lga_dict = {"lga_name": lga.lga_name}
-        state_dict = {"state_name": state.state_name}
-        lgas.append(lga_dict)
-        states.append(state_dict)
+        if lga:
+            state = models.States.objects.get(state_id=lga.state_id)
+            lga_dict = {"lga_name": lga.lga_name}
+            state_dict = {"state_name": state.state_name}
+            lgas.append(lga_dict)
+            states.append(state_dict)
     poll = list(poll)
     for i in range(len(poll)):
         poll[i]["lga_name"] = lgas[i]['lga_name']
