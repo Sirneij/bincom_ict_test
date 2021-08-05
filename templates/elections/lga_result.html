@@ -51,10 +51,19 @@
   const pollingUnitResultTable = document.getElementById(
     "polling_unit_result_table"
   );
+  $(document).ready(function () {
+    const lga_name = localGovenment.value;
+    fetchResult(lga_name);
+  });
+
   localGovenment.addEventListener("change", (e) => {
     e.preventDefault();
     pollingUnitResultTable.innerHTML = "";
     const lga_name = e.target.value;
+    fetchResult(lga_name);
+  });
+
+  const fetchResult = (lga_name) => {
     let formData = new FormData();
     formData.append("lga_name", lga_name);
     $.ajax({
@@ -115,11 +124,12 @@
             });
             pollingUnitResultTable.innerHTML += `</tbody>`;
           } else {
+            $("#polling_unit_result_table").html("");
             $("#polling_unit_info_header").text("No results for this LGA");
           }
         }
       },
     });
-  });
+  };
 </script>
 {% endblock js %}
