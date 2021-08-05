@@ -129,7 +129,7 @@
     <script>
       const csrftoken = $("[name=csrfmiddlewaretoken]").val();
       if (document.getElementById("spinningLoader")) {
-        $("spinningLoader").hide();
+        document.getElementById("spinningLoader").style.display="none";
       }
       if (csrftoken) {
         function csrfSafeMethod(method) {
@@ -142,8 +142,7 @@
               xhr.setRequestHeader("X-CSRFToken", csrftoken);
             }
             if (document.getElementById("spinningLoader")) {
-              $("spinningLoader").show();
-
+              document.getElementById("spinningLoader").removeAttribute("style");
               if (document.getElementById("polling_unit_info_header")) {
                 $("polling_unit_info_header").hide();
               }
@@ -157,7 +156,7 @@
           },
           complete: function () {
             if (document.getElementById("spinningLoader")) {
-              $("spinningLoader").hide();
+              document.getElementById("spinningLoader").style.display="none";
               if (document.getElementById("polling_unit_info_header")) {
                 $("polling_unit_info_header").show();
               }
