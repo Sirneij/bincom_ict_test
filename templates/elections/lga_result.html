@@ -18,10 +18,6 @@
   </form>
 
   <div class="table-responsive">
-<div class="d-flex align-items-center mt-2" id="loader">
-  <strong>Loading...</strong>
-  <div class="spinner-border text-success ms-auto" role="status" aria-hidden="true"></div>
-</div>
     <h3 class="text-center mt-2" id="polling_unit_info_header"></h3>
     <table
       class="table table-striped table-hover"
@@ -55,7 +51,7 @@
   const pollingUnitResultTable = document.getElementById(
     "polling_unit_result_table"
   );
-  $('#loader').hide();
+  document.getElementById("loader").style.display = "none";
   $(document).ready(function () {
     const lga_name = localGovenment.value;
     fetchResult(lga_name);
@@ -80,15 +76,10 @@
       processData: false,
       contentType: false,
       data: formData,
-      beforeSend: function (){
-       $('#loader').show();
-      },
-      complete: function (){
-       $('#loader').hide();
-      },
       error: function (xhr) {
         console.error(xhr.statusText);
       },
+
       success: function (res) {
         if (!res.success) {
           $("#polling_unit_info_header").text(res.msg);
