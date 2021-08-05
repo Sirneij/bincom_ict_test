@@ -18,7 +18,7 @@
   </form>
 
   <div class="table-responsive">
-<div class="d-flex align-items-center" id="loader">
+<div class="d-flex align-items-center mt-2" id="loader">
   <strong>Loading...</strong>
   <div class="spinner-border text-success ms-auto" role="status" aria-hidden="true"></div>
 </div>
@@ -55,8 +55,8 @@
   const pollingUnitResultTable = document.getElementById(
     "polling_unit_result_table"
   );
+  $('#loader').hide();
   $(document).ready(function () {
-    $('#loader').hide();
     const lga_name = localGovenment.value;
     fetchResult(lga_name);
   });
