@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+<!--title-->
+{% block title %} - {{page_title}}{% endblock title %}
+<!--static-->
+{% load static %}
+<!--content-->
+{% block content %}
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+  <h1 class="display-4 fw-normal">Add polling unit Results</h1>
+</div>
+<form action="" method="post">
+  {% csrf_token %}
+  <div class="row g-3">
+    {% for field in polling_unit_form %}
+    <div class="col-sm-6">
+      <label for="id_{{field.name}}" class="form-label">{{field.label}}</label>
+      {{field}}
+      <div class="invalid-feedback">Valid first name is required.</div>
+    </div>
+    {% endfor %}
+    <!---->
+    {% for field in announced_party_form %}
+    <div class="col-sm-6">
+      <label for="id_{{field.name}}" class="form-label">{{field.label}}</label>
+      {{field}}
+      <div class="invalid-feedback">Valid first name is required.</div>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="mt-2 d-flex">
+    <button
+      type="button"
+      class="btn btn-outline-success"
+      name="action"
+      value="another"
+    >
+      Save and add another
+    </button>
+    <button
+      type="button"
+      class="btn btn-success"
+      style="margin-left: auto"
+      name="action"
+      value="save"
+    >
+      Save
+    </button>
+  </div>
+</form>
+
+{% endblock content %}
+
+<!---->
+{% block js %}
+<script></script>
+{% endblock js %}

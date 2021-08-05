@@ -1,0 +1,41 @@
+{% load static %}
+<header
+  class="
+    d-flex
+    flex-column flex-md-row
+    align-items-center
+    pt-2
+    pb-3
+    mb-4
+    border-bottom
+  "
+>
+  <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+    <img
+      src="{% static 'images/logo.svg' %}"
+      alt=""
+      srcset="{% static 'images/logo.svg' %}"
+      width="40"
+      height="32"
+    />
+    <span class="fs-4">Election Results</span>
+  </a>
+
+  <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    <a
+      class="me-3 py-2 text-dark text-decoration-none"
+      href="{% url 'elections:pulling_unit_result' %}"
+      >Polling unit</a
+    >
+    <a
+      class="me-3 py-2 text-dark text-decoration-none"
+      href="{% url 'elections:lga_result' %}"
+      >LGA</a
+    >
+    <a
+      class="me-3 py-2 text-dark text-decoration-none"
+      href="{% url 'elections:add_polling_unit_result' %}"
+      >New Polling Unit</a
+    >
+  </nav>
+</header>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python Developer Interview</title>
+    <style>
+      body {
+        width: 50%;
+        margin: 2rem auto;
+      }
+    </style>
+  </head>
+  <body>
+    {% for i in num_list %}
+    <!---->
+    {% if i % 10 == 0 %}
+    <p><strong>{{i}}</strong></p>
+    {% elif i % 3 == 0%}
+    <p><i>{{i}}</i></p>
+    {% elif i | is_prime %}
+    <p><u>{{i}}</u></p>
+    {% else %}
+    <p>{{i}}</p>
+    {% endif %} {% endfor %}
+  </body>
+</html>

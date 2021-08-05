@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+<!--title-->
+{% block title %} - {{page_title}}{% endblock title %}
+<!--static-->
+{% load static %}
+<!--content-->
+{% block content %}
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+  <h1 class="display-4 fw-normal">Local Government Area Results</h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="col-12">
+      <div class="input-group has-validation">
+        {{lga_form.lga_name}}
+        <div class="invalid-feedback">Please provide a valid state.</div>
+      </div>
+    </div>
+  </form>
+
+  <div class="table-responsive">
+    <h3 class="text-center mt-2" id="polling_unit_info_header"></h3>
+    <table
+      class="table table-striped table-hover"
+      id="polling_unit_result_table"
+    >
+      <thead>
+        <tr>
+          <th style="width: 34%">#</th>
+          <th style="width: 34%">Party Abbreviation</th>
+          <th style="width: 22%">Party Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in lga_result_dict %}
+        <tr>
+          <td>{{forloop.counter}}</td>
+          <td>{{r.party_abbreviation}}</td>
+          <td>{{r.summed_party_result}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
+
+<!---->
+{% block js %}
+<script>
+  const localGovenment = document.getElementById("id_lga_name");
+  const pollingUnitResultTable = document.getElementById(
+    "polling_unit_result_table"
+  );
+  localGovenment.addEventListener("change", (e) => {
+    e.preventDefault();
+    pollingUnitResultTable.innerHTML = "";
+    const lga_name = e.target.value;
+    let formData = new FormData();
+    formData.append("lga_name", lga_name);
+    $.ajax({
+      url: "{% url 'elections:lga_result' %}",
+      type: "POST",
+      dataType: "json",
+      cache: false,
+      processData: false,
+      contentType: false,
+      data: formData,
+      error: function (xhr) {
+        console.error(xhr.statusText);
+      },
+      success: function (res) {
+        if (!res.success) {
+          $("#polling_unit_info_header").text(res.msg);
+        } else {
+          if (res.results.length > 0) {
+            $("#polling_unit_info_header").text("LGA result");
+            pollingUnitResultTable.innerHTML = `
+          <thead>
+            <tr>
+              <th style="width: 34%">#</th>
+              <th style="width: 34%">Party Abbreviation</th>
+              <th style="width: 22%">Party Score</th>
+            </tr>
+          </thead>
+          <tbody>
+          `;
+            let counter = 1;
+            const combinedItems = (arr = []) => {
+              const res = arr.reduce((acc, obj) => {
+                let found = false;
+                for (let i = 0; i < acc.length; i++) {
+                  if (acc[i].party_abbreviation === obj.party_abbreviation) {
+                    found = true;
+                    acc[i].total += obj.summed_party_result;
+                    acc[i].count++;
+                  }
+                }
+                if (!found) {
+                  obj.count = 1;
+                  obj.total = obj.summed_party_result;
+                  acc.push(obj);
+                }
+                return acc;
+              }, []);
+              return res;
+            };
+            combinedItems(res.results).forEach((r) => {
+              pollingUnitResultTable.innerHTML += `
+            <tr>
+              <td>${counter}</td>
+              <td>${r.party_abbreviation}</td>
+              <td>${r.total}</td>
+            </tr>`;
+              counter++;
+            });
+            pollingUnitResultTable.innerHTML += `</tbody>`;
+          } else {
+            $("#polling_unit_info_header").text("No results for this LGA");
+          }
+        }
+      },
+    });
+  });
+</script>
+{% endblock js %}
