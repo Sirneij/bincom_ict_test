@@ -154,6 +154,16 @@
           complete: function () {
             if (document.getElementById("spinningLoader")) {
               document.getElementById("spinningLoader").style.display = "none";
+              if (document.getElementById("polling_unit_info_header")) {
+                document.getElementById(
+                  "polling_unit_info_header"
+                ).style.display = "block";
+              }
+              if (document.getElementById("polling_unit_result_table")) {
+                document.getElementById(
+                  "polling_unit_result_table"
+                ).style.display = "block";
+              }
             }
           },
         });
