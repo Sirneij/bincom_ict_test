@@ -33,8 +33,9 @@ def lga_result(request):
         lga_id = request.POST.get("lga_name")
         print(lga_id)
         if lga_id:
+            lga = models.Lga.objects.get(uniqueid=lga_id)
             # get all polling units in the lga with that id
-            punits = models.PollingUnit.objects.filter(lga_id=lga_id).values(
+            punits = models.PollingUnit.objects.filter(lga_id=lga.lga_id).values(
                 "polling_unit_id", "polling_unit_number", "lga_id", "uniqueid")
             punit_ids = []
             # append all unique polling unit IDs
