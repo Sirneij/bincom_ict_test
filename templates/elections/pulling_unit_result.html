@@ -119,8 +119,8 @@
         if (!res.success) {
           $("#polling_unit_info_header").text(res.msg);
         } else {
-          $("#polling_unit_info_header").text("Polling unit information");
           if (res.poll_info.length > 0) {
+            $("#polling_unit_info_header").text("Polling unit information");
             pollingUnitInfoTable.innerHTML = `
               <thead>
                 <tr>
