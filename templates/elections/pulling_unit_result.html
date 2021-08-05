@@ -150,7 +150,7 @@
             });
             pollingUnitInfoTable.innerHTML += `</tbody>`;
           } else {
-            pollingUnitInfoTable.innerHTML = `<h3>No information available for this query</h3>`;
+            pollingUnitInfoTable.innerHTML = `<h3 class="text-center">No information available for this query</h3>`;
           }
 
           if (res.polling_unit_result.length > 0) {
@@ -176,7 +176,7 @@
             });
             pollingUnitResultTable.innerHTML += `</tbody>`;
           } else {
-            pollingUnitResultTable.innerHTML = `<h3>No information available for this query</h3>`;
+            pollingUnitResultTable.innerHTML = `<h3 class="text-center">No result available for this query</h3>`;
           }
         }
       },
