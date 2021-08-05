@@ -12,8 +12,9 @@ def get_client_ip(request):
 
 
 def get_polling_unit_info(number):
-    poll = models.PollingUnit.objects.filter(polling_unit_number__icontains=number).values(
-        "polling_unit_number", "polling_unit_name", "polling_unit_description", "lga_id", "polling_unit_id")
+    print(models.PollingUnit.objects.get(uniqueid=15).polling_unit_number)
+    poll = models.PollingUnit.objects.filter(uniqueid=number).values(
+        "polling_unit_number", "polling_unit_name", "polling_unit_description", "lga_id", "polling_unit_id", "uniqueid")
     lgas = []
     states = []
     for p in poll:
@@ -33,6 +34,6 @@ def get_polling_unit_info(number):
 
 def get_polling_unit_result(punit_number):
     result_poll = models.AnnouncedPuResults.objects.filter(
-        polling_unit_uniqueid__icontains=punit_number).values("party_abbreviation", "party_score").order_by("party_abbreviation")
+        polling_unit_uniqueid=punit_number).values("party_abbreviation", "party_score").order_by("party_abbreviation")
 
     return result_poll

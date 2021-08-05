@@ -18,8 +18,8 @@
             class="form-control"
             id="polling_unit_number"
             name="unit_number"
-            placeholder="Polling unit number"
-            value="DT22121"
+            placeholder="Polling unit unique ID"
+            value="15"
           />
         </div>
       </div>
@@ -35,6 +35,7 @@
       <thead>
         <tr>
           <th>#</th>
+          <th>Unique ID</th>
           <th>Name</th>
           <th>Number</th>
           <th>Description</th>
@@ -46,6 +47,7 @@
         {% for p in poll %}
         <tr>
           <td>{{forloop.counter}}</td>
+          <td>{{p.uniqueid}}</td>
           <th scope="row" class="text-start">{{p.polling_unit_name}}</th>
           <td>{{p.polling_unit_number}}</td>
           <td>{{p.polling_unit_description}}</td>
@@ -122,6 +124,7 @@
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>Unique ID</th>
                   <th>Name</th>
                   <th>Number</th>
                   <th>Description</th>
@@ -135,6 +138,7 @@
             pollingUnitInfoTable.innerHTML += `
             <tr>
               <td>${counter}</td>
+              <td>${p.uniqueid}</td>
               <th scope="row" class="text-start">${p.polling_unit_name}</th>
               <td>${p.polling_unit_number}</td>
               <td>${p.polling_unit_description}</td>
