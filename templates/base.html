@@ -145,19 +145,13 @@
               document.getElementById("spinningLoader").style.display = "block";
 
               if (document.getElementById("polling_unit_info_header")) {
-                document.getElementById(
-                  "polling_unit_info_header"
-                ).style.display = "none";
+                $("polling_unit_info_header").hide();
               }
               if (document.getElementById("polling_unit_info_table")) {
-                document.getElementById(
-                  "polling_unit_info_table"
-                ).style.display = "none";
+                $("polling_unit_info_table").hide();
               }
               if (document.getElementById("polling_unit_result_table")) {
-                document.getElementById(
-                  "polling_unit_result_table"
-                ).style.display = "none";
+                $("polling_unit_result_table").hide();
               }
             }
           },
@@ -165,19 +159,13 @@
             if (document.getElementById("spinningLoader")) {
               document.getElementById("spinningLoader").style.display = "none";
               if (document.getElementById("polling_unit_info_header")) {
-                document.getElementById(
-                  "polling_unit_info_header"
-                ).style.display = "block";
+                $("polling_unit_info_header").show();
               }
               if (document.getElementById("polling_unit_info_table")) {
-                document.getElementById(
-                  "polling_unit_info_table"
-                ).style.display = "block";
+                $("polling_unit_info_table").show();
               }
               if (document.getElementById("polling_unit_result_table")) {
-                document.getElementById(
-                  "polling_unit_result_table"
-                ).style.display = "block";
+                $("polling_unit_result_table").show();
               }
             }
           },
