@@ -89,7 +89,9 @@
 
       success: function (res) {
         if (!res.success) {
-          $("#polling_unit_info_header").text(res.msg);
+          if (!document.getElementById("spinningLoader")) {
+            $("#polling_unit_info_header").text(res.msg);
+          }
         } else {
           if (res.results.length > 0) {
             $("#polling_unit_info_header").text("LGA result");
