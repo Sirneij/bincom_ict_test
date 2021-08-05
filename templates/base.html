@@ -129,7 +129,7 @@
     <script>
       const csrftoken = $("[name=csrfmiddlewaretoken]").val();
       if (document.getElementById("spinningLoader")) {
-        document.getElementById("spinningLoader").style.display="none";
+        document.getElementById("spinningLoader").style.display = "none";
       }
       if (csrftoken) {
         function csrfSafeMethod(method) {
@@ -142,29 +142,43 @@
               xhr.setRequestHeader("X-CSRFToken", csrftoken);
             }
             if (document.getElementById("spinningLoader")) {
-              document.getElementById("spinningLoader").removeAttribute("style");
+              document
+                .getElementById("spinningLoader")
+                .removeAttribute("style");
               if (document.getElementById("polling_unit_info_header")) {
-                $("polling_unit_info_header").hide();
+                document.getElementById(
+                  "polling_unit_info_header"
+                ).style.display = "none";
               }
               if (document.getElementById("polling_unit_info_table")) {
-                $("polling_unit_info_table").hide();
+                document.getElementById(
+                  "polling_unit_info_table"
+                ).style.display = "none";
               }
               if (document.getElementById("polling_unit_result_table")) {
-                $("polling_unit_result_table").hide();
+                document.getElementById(
+                  "polling_unit_result_table"
+                ).style.display = "none";
               }
             }
           },
           complete: function () {
             if (document.getElementById("spinningLoader")) {
-              document.getElementById("spinningLoader").style.display="none";
+              document.getElementById("spinningLoader").style.display = "none";
               if (document.getElementById("polling_unit_info_header")) {
-                $("polling_unit_info_header").show();
+                document
+                  .getElementById("polling_unit_info_header")
+                  .removeAttribute("style");
               }
               if (document.getElementById("polling_unit_info_table")) {
-                $("polling_unit_info_table").show();
+                document
+                  .getElementById("polling_unit_info_table")
+                  .removeAttribute("style");
               }
               if (document.getElementById("polling_unit_result_table")) {
-                $("polling_unit_result_table").show();
+                document
+                  .getElementById("polling_unit_result_table")
+                  .removeAttribute("style");
               }
             }
           },
