@@ -6,7 +6,7 @@ from . import models
 LGA_CHOICE = []
 lGAS = models.Lga.objects.all()
 for lga in lGAS:
-    lga_list = (lga.lga_id, lga.lga_name)
+    lga_list = (lga.uniqueid, lga.lga_name)
     LGA_CHOICE.append(lga_list)
 
 PARTY_CHOICE = []
